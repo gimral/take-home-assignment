@@ -1,7 +1,11 @@
 package com.marionete.service.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class PostUserAccount {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
     public PostUserAccount() {
@@ -11,7 +15,7 @@ public class PostUserAccount {
         return username;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String userName) {
         this.username = userName;
     }
 

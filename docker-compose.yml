@@ -1,0 +1,15 @@
+version: '2'
+services:
+  marionete-service:
+    container_name: marionete-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: marionete-service:latest
+    ports:
+      - 8080:8080
+    networks:
+      - marionete-network
+networks:
+  marionete-network:
+    driver: bridge

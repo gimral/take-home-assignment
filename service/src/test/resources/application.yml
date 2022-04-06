@@ -2,8 +2,6 @@ ACCOUNT_API_URI: 'http://localhost:8899'
 USER_API_URI: 'http://localhost:8898'
 
 grpc:
-  server:
-    port: 9898
   client:
     login-server:
       address: 'static://127.0.0.1:9898'

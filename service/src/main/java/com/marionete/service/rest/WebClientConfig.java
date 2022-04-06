@@ -3,12 +3,10 @@ package com.marionete.service.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.http.codec.json.Jackson2CodecSupport;
@@ -31,13 +29,6 @@ public class WebClientConfig {
     @Value("${USER_API_URI}")
     private String userApiUri;
 
-    private final ObjectMapper objectMapper;
-
-    @Autowired
-    public WebClientConfig(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
     @Bean
     public WebClient accountApiClient(WebClient.Builder webClientBuilder) {
 
@@ -50,6 +41,7 @@ public class WebClientConfig {
 
         return webClientBuilder.baseUrl(accountApiUri)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                //Response does not have the correct content type header
                 .codecs(getCodecConfigurer())
                 .filter(retryFilter())
                 .build();

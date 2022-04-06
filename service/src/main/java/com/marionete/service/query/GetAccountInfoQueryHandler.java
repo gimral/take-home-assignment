@@ -2,7 +2,6 @@ package com.marionete.service.query;
 
 import com.marionete.service.model.AccountInfo;
 import com.marionete.service.model.query.GetAccountInfoQuery;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

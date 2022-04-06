@@ -1,5 +1,6 @@
 package com.marionete.service.query;
 
+import com.marionete.service.exception.TokenException;
 import com.marionete.service.model.AccountInfo;
 import com.marionete.service.model.UserAccount;
 import com.marionete.service.model.UserInfo;
@@ -25,8 +26,11 @@ public class GetUserAccountQueryHandler {
         this.getTokenQueryHandler = getTokenQueryHandler;
     }
 
-    public Mono<UserAccount> handle(GetUserAccountQuery query){
+    public Mono<UserAccount> handle(GetUserAccountQuery query) throws TokenException {
         String token = getTokenQueryHandler.handle(new GetTokenQuery(query.getUserName(),query.getPassword()));
+        if(token.isEmpty()){
+            throw new TokenException();
+        }
         Mono<AccountInfo> accountInfo = getAccountQueryHandler.handle(new GetAccountInfoQuery(token));
         Mono<UserInfo> userInfo = getUserInfoQueryHandler.handle(new GetUserInfoQuery(token));
         return Mono.zip(accountInfo, userInfo).map(tuple -> new UserAccount(tuple.getT1(), tuple.getT2()));
