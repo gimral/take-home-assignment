@@ -41,23 +41,8 @@ class UserAccountControllerTest {
         when(getUserAccountQueryHandler.handle(any(GetUserAccountQuery.class))).thenReturn(Mono.just(userAccount));
 
         //when
-        UserAccount result = userAccountController.userAccount(postUserAccount);
+        UserAccount result = userAccountController.userAccount(postUserAccount).block();
         //then
         assertThat(result).usingRecursiveComparison().isEqualTo(userAccount);
-    }
-
-    @Test
-    public void postUserAccountShouldFailForInvalidRequest() throws TokenException {
-        // given
-        PostUserAccount postUserAccount = new PostUserAccount();
-        postUserAccount.setUsername("");
-        postUserAccount.setPassword("");
-
-        when(getUserAccountQueryHandler.handle(any(GetUserAccountQuery.class))).thenReturn(Mono.empty());
-
-        //when
-        UserAccount result = userAccountController.userAccount(postUserAccount);
-        //then
-
     }
 }

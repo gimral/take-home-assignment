@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -32,15 +33,14 @@ public class UserAccountController {
     //TokenException is configured to return Internal Server Error in exception implementation
     @PostMapping("/marionete/useraccount")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "UserAccount returned"),
+            @ApiResponse(responseCode = "200", description = "UserAccount returned",content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserAccount.class))),
             @ApiResponse(responseCode = "400", description = "Validation Failed",content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Server Error",content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))})
     @ResponseStatus(HttpStatus.OK)
-    public UserAccount userAccount(@Valid @RequestBody PostUserAccount postUserAccount) throws TokenException {
+    public Mono<UserAccount> userAccount(@Valid @RequestBody PostUserAccount postUserAccount) throws TokenException {
         GetUserAccountQuery query = new GetUserAccountQuery(postUserAccount.getUsername(),
                 postUserAccount.getPassword());
-        //TODO: Return mono
-        return getUserAccountQueryHandler.handle(query).block();
+        return getUserAccountQueryHandler.handle(query);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

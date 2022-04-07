@@ -29,6 +29,12 @@ public class WebClientConfig {
     @Value("${USER_API_URI}")
     private String userApiUri;
 
+    @Value("${REST_CLIENT_MAX_RETRIES:10}")
+    private int maxRetries;
+
+    @Value("${REST_CLIENT_MIN_BACKOFF_S:1}")
+    private int minBackoff;
+
     @Bean
     public WebClient accountApiClient(WebClient.Builder webClientBuilder) {
 
@@ -84,7 +90,7 @@ public class WebClientConfig {
                             }
                         })
                         .retryWhen(
-                                Retry.backoff(10, Duration.ofSeconds(1))
+                                Retry.backoff(maxRetries, Duration.ofSeconds(minBackoff))
                                         .jitter(0.7)
                                         .filter(throwable -> throwable instanceof RuntimeException)
                                         .doAfterRetry(retrySignal -> logger.warn("Retrying the request"))

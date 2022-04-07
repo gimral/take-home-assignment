@@ -6,6 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     image: marionete-service:latest
+    environment:
+      ACCOUNT_API_URI: http://localhost:8899
+      USER_API_URI: http://localhost:8898
     ports:
       - 8080:8080
     networks:

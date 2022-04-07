@@ -4,6 +4,10 @@ public class UserAccount {
     private AccountInfo accountInfo;
     private UserInfo userInfo;
 
+    public UserAccount(){
+
+    }
+
     public UserAccount(AccountInfo accountInfo, UserInfo userInfo) {
         this.accountInfo = accountInfo;
         this.userInfo = userInfo;
