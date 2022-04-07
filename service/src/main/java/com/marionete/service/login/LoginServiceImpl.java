@@ -28,6 +28,7 @@ public class LoginServiceImpl extends LoginServiceImplBase {
 
         ValidationResponse validationResponse = loginRequestValidator.validate(request);
         //TODO: LoginResponse should include error We are returning empty token for error per contract
+        //TODO: Use a real IDP to handle auth(Keycloak?)
         String token = validationResponse.isValid() ? Integer.toString(request.hashCode()) : "";
         LoginResponse response = LoginResponse.newBuilder()
                 .setToken(token)

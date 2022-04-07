@@ -9,6 +9,8 @@ services:
     environment:
       ACCOUNT_API_URI: http://localhost:8899
       USER_API_URI: http://localhost:8898
+      REST_CLIENT_MAX_RETRIES: 5
+      REST_CLIENT_MIN_BACKOFF_S: 1
     ports:
       - 8080:8080
     networks:
