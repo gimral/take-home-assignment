@@ -30,11 +30,12 @@ public class UserAccountController {
         this.getUserAccountQueryHandler = getUserAccountQueryHandler;
     }
 
-    //TokenException is configured to return Internal Server Error in exception implementation
+    //TokenException is configured to return UnAuthorized Error in exception implementation
     @PostMapping("/marionete/useraccount")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "UserAccount returned",content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserAccount.class))),
             @ApiResponse(responseCode = "400", description = "Validation Failed",content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "401",content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Server Error",content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)))})
     @ResponseStatus(HttpStatus.OK)
     public Mono<UserAccount> userAccount(@Valid @RequestBody PostUserAccount postUserAccount) throws TokenException {
