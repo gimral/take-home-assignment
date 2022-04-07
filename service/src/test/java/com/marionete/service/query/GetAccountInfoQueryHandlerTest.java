@@ -1,10 +1,8 @@
 package com.marionete.service.query;
 
-import com.marionete.backends.AccountInfoMock;
 import com.marionete.service.BeforeAllTestsExtension;
 import com.marionete.service.model.AccountInfo;
 import com.marionete.service.model.query.GetAccountInfoQuery;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith({BeforeAllTestsExtension.class})
 @DirtiesContext
 class GetAccountInfoQueryHandlerTest {
-    private GetAccountInfoQueryHandler getAccountInfoQueryHandler;
+    private final GetAccountInfoQueryHandler getAccountInfoQueryHandler;
 
     @Autowired
     GetAccountInfoQueryHandlerTest(GetAccountInfoQueryHandler getAccountInfoQueryHandler) {
@@ -36,6 +34,7 @@ class GetAccountInfoQueryHandlerTest {
         //when
         AccountInfo accountInfo = getAccountInfoQueryHandler.handle(query).block();
         //then
+        assertThat(accountInfo).isNotNull();
         assertThat(accountInfo.getAccountNumber()).isNotEmpty();
     }
 }

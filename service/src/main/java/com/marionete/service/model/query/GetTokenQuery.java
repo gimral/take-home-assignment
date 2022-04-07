@@ -1,8 +1,8 @@
 package com.marionete.service.model.query;
 
 public class GetTokenQuery {
-    private String userName;
-    private String password;
+    private final String userName;
+    private final String password;
 
     public GetTokenQuery(String userName, String password) {
         this.userName = userName;

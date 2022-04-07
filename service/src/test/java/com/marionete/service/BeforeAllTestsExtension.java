@@ -1,14 +1,14 @@
 package com.marionete.service;
 
-import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import com.marionete.backends.AccountInfoMock;
 import com.marionete.backends.UserInfoMock;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 
 //https://stackoverflow.com/a/51556718
 public class BeforeAllTestsExtension
@@ -19,7 +19,7 @@ public class BeforeAllTestsExtension
     final static Lock lock = new ReentrantLock();
 
     @Override
-    public void beforeAll(final ExtensionContext context) throws Exception {
+    public void beforeAll(final ExtensionContext context)  {
         // lock the access so only one Thread has access to it
         lock.lock();
         if (!started) {

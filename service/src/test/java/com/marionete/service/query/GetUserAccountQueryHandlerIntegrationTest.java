@@ -1,12 +1,9 @@
 package com.marionete.service.query;
 
-import com.marionete.backends.AccountInfoMock;
-import com.marionete.backends.UserInfoMock;
 import com.marionete.service.BeforeAllTestsExtension;
 import com.marionete.service.exception.TokenException;
 import com.marionete.service.model.UserAccount;
 import com.marionete.service.model.query.GetUserAccountQuery;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith({BeforeAllTestsExtension.class})
 @DirtiesContext
 class GetUserAccountQueryHandlerIntegrationTest {
-    private GetUserAccountQueryHandler getUserAccountQueryHandler;
+    private final GetUserAccountQueryHandler getUserAccountQueryHandler;
 
     @Autowired
     GetUserAccountQueryHandlerIntegrationTest(GetUserAccountQueryHandler getUserAccountQueryHandler) {
@@ -38,6 +35,7 @@ class GetUserAccountQueryHandlerIntegrationTest {
         //when
         UserAccount userAccount = getUserAccountQueryHandler.handle(query).block();
         //then
+        assertThat(userAccount).isNotNull();
         assertThat(userAccount.getAccountInfo().getAccountNumber()).isEqualTo("12345-3346-3335-4456");
         assertThat(userAccount.getUserInfo().getName()).isEqualTo("John");
         assertThat(userAccount.getUserInfo().getSurname()).isEqualTo("Doe");

@@ -1,9 +1,7 @@
 package com.marionete.service.query;
 
-import com.marionete.service.BeforeAllTestsExtension;
 import com.marionete.service.model.query.GetTokenQuery;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 })
 class GetTokenQueryHandlerTest {
 
-    private GetTokenQueryHandler getTokenQueryHandler;
+    private final GetTokenQueryHandler getTokenQueryHandler;
 
     @Autowired
     GetTokenQueryHandlerTest(GetTokenQueryHandler getTokenQueryHandler) {

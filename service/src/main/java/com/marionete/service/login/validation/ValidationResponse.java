@@ -3,8 +3,8 @@ package com.marionete.service.login.validation;
 import java.util.List;
 
 public class ValidationResponse {
-    private boolean valid;
-    private List<String> validationErrors;
+    private final boolean valid;
+    private final List<String> validationErrors;
 
     public ValidationResponse(boolean valid, List<String> validationErrors) {
         this.valid = valid;

@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith({BeforeAllTestsExtension.class})
 @DirtiesContext
 class GetUserInfoQueryHandlerTest {
-    private GetUserInfoQueryHandler getUserInfoQueryHandler;
+    private final GetUserInfoQueryHandler getUserInfoQueryHandler;
 
     @Autowired
     GetUserInfoQueryHandlerTest(GetUserInfoQueryHandler getUserInfoQueryHandler) {
@@ -34,6 +34,7 @@ class GetUserInfoQueryHandlerTest {
         //when
         UserInfo userInfo = getUserInfoQueryHandler.handle(query).block();
         //then
+        assertThat(userInfo).isNotNull();
         assertThat(userInfo.getName()).isNotEmpty();
     }
 }
